@@ -14,6 +14,7 @@ public class TaskService {
     private TaskRepository taskRepository;
 
     public List<Task> getAllTasks() {
+
         return taskRepository.findAll();
     }
 
@@ -22,12 +23,13 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-    public Task toggleTask(Long id) {
+   public Task toggleTask(Long id) {
         Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Task not found"));
+                .orElseThrow(() -> new RuntimeException("Task not found"));//Задание не найдено
         task.setCompleted(!task.isCompleted());
         return taskRepository.save(task);
     }
+
 
     public void deleteTask(Long id) {
         taskRepository.deleteById(id);
