@@ -9,9 +9,25 @@
         ul { list-style: none; padding: 0; }
         li { margin: 10px 0; }
         .completed { text-decoration: line-through; color: #888; }
-        .btn { padding: 5px 10px; text-decoration: none; margin: 0 5px; font-size: 14px; }
-        .btn-toggle { background: #ffcc00; border-radius: 4px; }
-        .btn-delete { background: #ff4d4d; color: white; border-radius: 4px; }
+        .btn {
+        padding: 5px 10px;
+        text-decoration: none;
+        margin: 0 5px;
+        font-size: 14px; }
+        .btn-toggle {
+        background: #ffcc00;
+        border-radius: 4px; }
+        .btn-edit {
+        background: #28a745;
+        color: white;
+        padding: 5px 10px;
+        text-decoration:none;
+        border-radius: 4px;
+        margin: 0 5px;}
+        .btn-delete {
+        background: #ff4d4d;
+        color: white;
+        border-radius: 4px; }
         input[type="text"] { padding: 8px; width: 300px; border: 1px solid #ccc; border-radius: 4px; }
         input[type="submit"] { padding: 8px 12px; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; }
         input[type="submit"]:hover { background: #45a049; }
@@ -31,6 +47,7 @@
         <a th:href="@{/toggle/{id}(id=${task.id})}" class="btn btn-toggle">
             <th:block th:text="${task.completed ? 'Undo' : 'Done'}"></th:block>
         </a>
+        <a th:href="@{/edit/{id}(id=${task.id})}" class="btn btn-edit">Edit</a>
         <a th:href="@{/delete/{id}(id=${task.id})}" class="btn btn-delete">Delete</a>
     </li>
 </ul>

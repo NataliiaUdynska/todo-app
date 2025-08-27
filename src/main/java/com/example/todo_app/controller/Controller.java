@@ -31,6 +31,21 @@ public class Controller {
         return "redirect:/";
     }
 
+    @GetMapping("/edit/{id}")
+    public String editTask(@PathVariable Long id, Model model){
+        Task task = taskService.getAllTasks().stream()
+                .filter(t -> t.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Task not found"));
+        model.addAttribute("task", task);
+        return "edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String editTask (@PathVariable Long id, @RequestParam String description){
+        taskService.editTask(id, description);
+        return "redirect:/"; // Возвращение на главную страницу
+    }
 
     @GetMapping("/delete/{id}")
     public String deleteTask(@PathVariable Long id) {

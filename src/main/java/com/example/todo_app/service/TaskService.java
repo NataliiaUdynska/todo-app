@@ -7,22 +7,25 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service // Указывает, что этот класс является сервисом
 public class TaskService {
 
     @Autowired
-    private TaskRepository taskRepository;
+    private TaskRepository taskRepository;// Подключение репозитория для работы с БД
 
+    //Возвращает все задачи из таблицы
     public List<Task> getAllTasks() {
 
         return taskRepository.findAll();
     }
 
+    //Добавление новой задачи
     public Task addTask(String description) {
         Task task = new Task(description);
         return taskRepository.save(task);
     }
 
+    //Подключение статуса выполнено/ не выполнено
    public Task toggleTask(Long id) {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Task not found"));//Задание не найдено
@@ -30,7 +33,15 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
+    //Редактирование задачи
+    public Task editTask(Long id, String description){
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Task not found"));
+        task.setDescription(description);
+        return taskRepository.save(task);
+    }
 
+    //Удаление задачи по id
     public void deleteTask(Long id) {
         taskRepository.deleteById(id);
     }
