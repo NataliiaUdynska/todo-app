@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Set Priority</title>
+</head>
+<body>
+<h1>🎯 Set Priority for: <span th:text="${task.description}"></span></h1>
+<form th:action="@{/update-priority/{id}(id=${task.id})}" method="post">
+    <select name="priority" required>
+        <option value="LOW">🔵 Not urgent</option> // не срочно
+        <option value="MEDIUM">🟠 Average</option> // средне
+        <option value="HIGH">🔴 Urgently</option>// срочно
+    </select>
+    <button type="submit">Save Priority</button>
+</form>
+<a href="/">← Back</a>
+</body>
+</html>

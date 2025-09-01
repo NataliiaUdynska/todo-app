@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <style>
+        body { font-family: Arial; text-align: center; margin: 40px; }
+        h1 { color: #e74c3c; }
+        a { color: #3498db; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <h1>❌ Something went wrong!</h1>
+    <p>We couldn't complete your request. Please try again.</p>
+    <a href="/">← Back to Tasks</a>
+</body>
+</html>

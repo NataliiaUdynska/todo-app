@@ -2,41 +2,36 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Редактировать задачу</title>
+    <title>Edit Task</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 40px; }
-        form { max-width: 500px; margin: 0 auto; }
+        body { font-family: Arial; margin: 40px; }
+        h1 { color: #2c3e50; }
+        form { margin-top: 20px; }
         input[type="text"] {
-            width: 100%;
             padding: 8px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            width: 300px;
         }
         input[type="submit"] {
-            padding: 10px 20px;
-            background: #007BFF;
+            padding: 8px 12px;
+            background: #4CAF50;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
         }
-        input[type="submit"]:hover { background: #0056b3; }
-        .back-link {
-            display: block;
-            margin-top: 20px;
-            text-align: center;
-            color: #555;
-            text-decoration: none;
-        }
+        a { margin-left: 10px; color: #0066cc; text-decoration: none; }
+        a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
-<h1> Edit task </h1>
-<form th:action="@{'/edit/' + ${task.id}}" method="post">
+<h1>✏️ Edit Task</h1>
+<p><strong>Current:</strong> <span th:text="${task.description}"></span></p>
+
+<form th:action="@{/edit/{id}(id=${task.id})}" method="post">
     <input type="text" name="description" th:value="${task.description}" required />
-    <input type="submit" value="Save changes" />
+    <input type="submit" value="Update Task" />
 </form>
-<a href="/" class="back-link">← Back to list</a>
+
+<a href="/">← Back to Tasks</a>
 </body>
 </html>

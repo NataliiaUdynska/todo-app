@@ -15,7 +15,15 @@ public class Task {
 
     private boolean completed = false;
 
-    public Task() {}
+    @Enumerated(EnumType.STRING)
+    private Priority priority = Priority.LOW;
+
+    public Priority getPriority() { return priority; }
+    public void setPriority(Priority priority) { this.priority = priority; }
+
+    public Task() {
+        // JPA требует пустой конструктор
+    }
 
     public Task(String description) {
         this.description = description;

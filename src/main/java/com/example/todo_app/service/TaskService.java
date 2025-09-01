@@ -1,5 +1,6 @@
 package com.example.todo_app.service;
 
+import com.example.todo_app.model.Priority;
 import com.example.todo_app.model.Task;
 import com.example.todo_app.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,42 +8,50 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service // Указывает, что этот класс является сервисом
+
+@Service
 public class TaskService {
 
     @Autowired
-    private TaskRepository taskRepository;// Подключение репозитория для работы с БД
+    private TaskRepository taskRepository;
 
-    //Возвращает все задачи из таблицы
     public List<Task> getAllTasks() {
-
         return taskRepository.findAll();
     }
 
-    //Добавление новой задачи
-    public Task addTask(String description) {
-        Task task = new Task(description);
+    public Task addTask(Task task) {
         return taskRepository.save(task);
     }
 
-    //Подключение статуса выполнено/ не выполнено
-   public Task toggleTask(Long id) {
-        Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Task not found"));//Задание не найдено
+    public Task toggleTask(Long id) {
+        Task task = findTaskById(id);
         task.setCompleted(!task.isCompleted());
         return taskRepository.save(task);
     }
 
-    //Редактирование задачи
-    public Task editTask(Long id, String description){
-        Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Task not found"));
+    public Task editTask(Long id, String description) {
+        Task task = findTaskById(id);
         task.setDescription(description);
         return taskRepository.save(task);
     }
 
-    //Удаление задачи по id
     public void deleteTask(Long id) {
         taskRepository.deleteById(id);
     }
+
+    public void updatePriority(Long id, Priority priority) {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Task not found"));
+        task.setPriority(priority);
+        taskRepository.save(task);
+        System.out.println("💾 Task saved with priority: " + priority);
+    }
+
+    // Вспомогательный метод
+    public Task findTaskById(Long id) {
+        return taskRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Task not found"));
+    }
+
+
 }

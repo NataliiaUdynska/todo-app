@@ -4,33 +4,26 @@
     <meta charset="UTF-8">
     <title>To-Do List</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 40px; }
+        body { font-family: Arial; margin: 40px; }
         h1 { color: #2c3e50; }
         ul { list-style: none; padding: 0; }
-        li { margin: 10px 0; }
-        .completed { text-decoration: line-through; color: #888; }
-        .btn {
-        padding: 5px 10px;
-        text-decoration: none;
-        margin: 0 5px;
-        font-size: 14px; }
-        .btn-toggle {
-        background: #ffcc00;
-        border-radius: 4px; }
-        .btn-edit {
-        background: #28a745;
-        color: white;
-        padding: 5px 10px;
-        text-decoration:none;
-        border-radius: 4px;
-        margin: 0 5px;}
-        .btn-delete {
-        background: #ff4d4d;
-        color: white;
-        border-radius: 4px; }
-        input[type="text"] { padding: 8px; width: 300px; border: 1px solid #ccc; border-radius: 4px; }
-        input[type="submit"] { padding: 8px 12px; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; }
-        input[type="submit"]:hover { background: #45a049; }
+        .task-item {
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .task-HIGH   { background-color: #E34234; color: white; }
+        .task-MEDIUM { background-color: #ee9e49; color: white; }
+        .task-LOW    { background-color: #5878e9; color: white; }
+        .completed { text-decoration: line-through; opacity: 0.7; }
+        .btn { padding: 5px 10px; text-decoration: none; margin: 0 5px; }
+        .btn-toggle { background: #ffcc00; }
+        .btn-edit { background: #28a745; color: white; }
+        .btn-delete { background: #a20110; color: white; }
+        .btn-priority { background: #555; color: white; }
     </style>
 </head>
 <body>
@@ -38,17 +31,27 @@
 
 <form th:object="${newTask}" th:action="@{/add}" method="post">
     <input type="text" th:field="*{description}" placeholder="Enter a new task" required />
+    <select th:field="*{priority}" required>
+        <option value="LOW">🔵 Not urgent</option> // не срочно
+        <option value="MEDIUM">🟠 Average</option> // средне
+        <option value="HIGH">🔴 Urgently</option>// срочно
+    </select>
     <input type="submit" value="Add Task" />
 </form>
 
 <ul>
     <li th:each="task : ${tasks}">
-        <span th:class="${task.completed ? 'completed' : ''}" th:text="${task.description}"></span>
-        <a th:href="@{/toggle/{id}(id=${task.id})}" class="btn btn-toggle">
-            <th:block th:text="${task.completed ? 'Undo' : 'Done'}"></th:block>
-        </a>
-        <a th:href="@{/edit/{id}(id=${task.id})}" class="btn btn-edit">Edit</a>
-        <a th:href="@{/delete/{id}(id=${task.id})}" class="btn btn-delete">Delete</a>
+        <div th:class="|task-item task-${task.priority} ${task.completed ? 'completed' : ''}|">
+            <span th:text="${task.description}"></span>
+            <div>
+                <a th:href="@{/toggle/{id}(id=${task.id})}" class="btn btn-toggle">
+                    <th:block th:text="${task.completed ? 'Undo' : 'Done'}"></th:block>
+                </a>
+                <a th:href="@{/edit/{id}(id=${task.id})}" class="btn btn-edit">Edit</a>
+                <a th:href="@{/delete/{id}(id=${task.id})}" class="btn btn-delete">Delete</a>
+                <a th:href="@{/set-priority/{id}(id=${task.id})}" class="btn btn-priority">Set Priority</a>
+            </div>
+        </div>
     </li>
 </ul>
 
