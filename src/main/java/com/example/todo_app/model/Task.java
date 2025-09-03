@@ -1,6 +1,7 @@
 package com.example.todo_app.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tasks")
@@ -21,12 +22,24 @@ public class Task {
     public Priority getPriority() { return priority; }
     public void setPriority(Priority priority) { this.priority = priority; }
 
+    @Column(name = "created_at", updatable = false )
+    private LocalDateTime createdAt;
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    // Устанавливаем время при создании/ Set the time when created
     public Task() {
-        // JPA требует пустой конструктор
+        this.createdAt = LocalDateTime.now();
     }
 
     public Task(String description) {
         this.description = description;
+        this.createdAt = LocalDateTime.now();
     }
 
     // Геттеры и сеттеры

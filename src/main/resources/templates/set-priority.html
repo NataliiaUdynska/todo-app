@@ -8,9 +8,9 @@
 <h1>🎯 Set Priority for: <span th:text="${task.description}"></span></h1>
 <form th:action="@{/update-priority/{id}(id=${task.id})}" method="post">
     <select name="priority" required>
-        <option value="LOW">🔵 Not urgent</option> // не срочно
-        <option value="MEDIUM">🟠 Average</option> // средне
-        <option value="HIGH">🔴 Urgently</option>// срочно
+        <option value="LOW">🔵 Not urgent</option>
+        <option value="MEDIUM">🟠 Average</option>
+        <option value="HIGH">🔴 Urgently</option>
     </select>
     <button type="submit">Save Priority</button>
 </form>
