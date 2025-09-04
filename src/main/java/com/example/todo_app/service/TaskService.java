@@ -15,13 +15,6 @@ public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
 
-    /* public List<Task> getAllTasks() {
-        return taskRepository.findAll();
-    }
-
-     */
-
-
 
     public Task addTask(Task task) {
         return taskRepository.save(task);
@@ -66,6 +59,16 @@ public class TaskService {
             if (priorityOrder != 0) return priorityOrder;
             return t2.getId().compareTo(t1.getId()); // По ID, чтобы порядок был стабильным
         });
+
+
+       // Затем сортируем по статусу: незавершённые → сверху, завершённые → внизу
+       tasks.sort((t1, t2) -> {
+           boolean completed1 = t1.isCompleted();
+           boolean completed2 = t2.isCompleted();
+           if (completed1 && !completed2) return 1;
+           if (!completed1 && completed2) return -1;
+           return 0;
+       });
 
         return tasks;
     }
