@@ -15,9 +15,13 @@ public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
 
-    public List<Task> getAllTasks() {
+    /* public List<Task> getAllTasks() {
         return taskRepository.findAll();
     }
+
+     */
+
+
 
     public Task addTask(Task task) {
         return taskRepository.save(task);
@@ -53,5 +57,16 @@ public class TaskService {
                 .orElseThrow(() -> new RuntimeException("Task not found"));
     }
 
+   public List<Task> getAllTasks() {
+        List<Task> tasks = taskRepository.findAll();
 
+        // Сортировка: HIGH -> MEDIUM -> LOW
+        tasks.sort((t1, t2) -> {
+            int priorityOrder = t1.getPriority().compareTo(t2.getPriority()); // DESC
+            if (priorityOrder != 0) return priorityOrder;
+            return t2.getId().compareTo(t1.getId()); // По ID, чтобы порядок был стабильным
+        });
+
+        return tasks;
+    }
 }

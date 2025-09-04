@@ -43,7 +43,9 @@
     </select>
     <input type="submit" value="Add Task" />
 </form>
-
+<div style="margin: 10px 0; font-weight: bold; color: #2c3e50;">
+    🔴 Urgently → 🟠 Average → 🔵 Not urgent
+</div>
 <ul>
     <li th:each="task : ${tasks}">
         <div th:class="|task-item task-${task.priority} ${task.completed ? 'completed' : ''}|">
