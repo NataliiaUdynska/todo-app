@@ -8,6 +8,7 @@
         h1 { color: ##0A0A0A; text-align: center; }
         ul { list-style: none; padding: 0; }
         .task-item {
+            font-size: 18px;
             padding: 12px 15px;
             margin: 8px 0;
             border-radius: 8px;
@@ -15,14 +16,14 @@
             justify-content: space-between;
             align-items: center;
         }
-        .task-HIGH   { background-color: #E34234; color: white; }
-        .task-MEDIUM { background-color: #ee9e49; color: white; }
-        .task-LOW    { background-color: #5878e9; color: white; }
+        .task-HIGH   {  width: 69%; background-color: #E34234; color: white; }
+        .task-MEDIUM {  width: 69%; background-color: #ee9e49; color: white; }
+        .task-LOW    { width: 69%; background-color: #5878e9; color: white; }
         .completed { text-decoration: line-through; opacity: 0.7; }
         .task-time { font-size: 12px; opacity: 0.8; margin-top: 4px; }
         .btn { padding: 5px 10px; text-decoration: none; margin: 0 3px; }
-        .btn-toggle { background: #ffcc00; }
-        .btn-edit { background: #28a745; color: white; }
+        .btn-toggle { background: #28a745; color: white; }
+        .btn-edit { background: #FFDB58;  color: black;}
         .btn-delete { background: #a20110; color: white; }
         .btn-priority { background: #1D334A; color: white; }
         .add-form { margin-bottom: 20px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
@@ -48,8 +49,8 @@
 </div>
 <ul>
     <li th:each="task : ${tasks}">
-        <div th:class="|task-item task-${task.priority} ${task.completed ? 'completed' : ''}|">
-            <div>
+        <div th:class="|task-item |">
+            <div th:class="|task-${task.priority} ${task.completed ? 'completed' : ''}|">
                 <span th:text="${task.description}"></span>
                 <div class="task-time" th:text="${#temporals.format(task.createdAt, 'HH:mm, dd MMM yyyy')}"></div>
             </div>

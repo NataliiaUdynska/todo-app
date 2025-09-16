@@ -65,9 +65,9 @@ public class TaskService {
        tasks.sort((t1, t2) -> {
            boolean completed1 = t1.isCompleted();
            boolean completed2 = t2.isCompleted();
-           if (completed1 && !completed2) return 1;
-           if (!completed1 && completed2) return -1;
-           return 0;
+           if (completed1 && !completed2) return 1; // Если t1 завершена, а t2 нет → t1 идёт ниже
+           if (!completed1 && completed2) return -1; // Если t1 не завершена, а t2 — да → t1 идёт выше
+           return 0; // Если обе завершены или обе нет — оставляем как есть
        });
 
         return tasks;
