@@ -30,7 +30,7 @@ There are two ways to run the application:
 
 1. For the user
      1. Follow the link: https://github.com/NataliiaUdynska/todo-app/releases
-     2. Find todo-app.rar at the bottom and download todo-app-1.0.zip
+     2. Find todo-app.rar at the bottom and download it
      3. Double-click on the file:To-Do App.exe — the application will start automatically
      4. Open in your browser: http://localhost:8080
 
